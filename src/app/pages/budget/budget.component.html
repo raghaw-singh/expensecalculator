@@ -1,0 +1,88 @@
+<div >
+<h3 class="top-text">Expense Calculator</h3>
+
+<button type="button" class="btn-right" (click)="log()">Logout</button>
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+               
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" *ngIf="!showExpandature">
+                   
+                    
+                    <div class="row">
+                        <div class="col">
+                            <label><b>Name</b></label>
+                            <select class="form-control mt-2" id="field_countries" name="country" #t formControlName="email" placeholder="Enter expense...." (change)="countryChanged(t.value)" style="height: 38px;">
+                                <option [value]="country" *ngFor="let country of options"> {{ country }} </option>
+                            </select>
+                          <!-- <input type="text" class="form-control" formControlName="email" id="email" placeholder="Enter expense...." name="email"> -->
+                        </div>
+                        <div class="col">
+                            <label><b>Amount</b></label>
+                          <input type="text" class="form-control" formControlName="password" placeholder="Enter amount..." name="pswd">
+                        </div>
+
+                        
+                      </div>
+                    <div class="form-group btn-submit">
+                        <button [disabled]="buttonDisable" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+    </div>
+   
+
+<div>
+<h6 class="mr--top" *ngIf="!showExpandature"><b>Total expenditure</b>:Rs    {{sum}}    /-</h6>
+<h6 class="mr--top" *ngIf="showExpandature"><b>Total expenditure</b>:Rs    {{sum_data}}    /-</h6>
+
+<div style="float: right;">           
+  <form [formGroup]="dateForm" (ngSubmit)="onSubmitDate()">
+    <div>
+        <div>
+            <label><b>Date</b></label>
+          <input type="date" class="form-control" formControlName="datte" placeholder="Enter amount..." name="pswd">
+        </div>
+      </div>
+    <div class="form-group btn-submit">
+        <button [disabled]="buttonDisableSearch" class="btn btn-primary">Search..</button>
+    </div>
+</form>
+  </div>
+</div>
+</div>
+
+<div class="container">
+  
+    <table class="table table-hover" *ngIf="showTable" >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let c of arry;let i =index">
+        <tr>
+          <td>{{c.email}}</td>
+          <td>{{c.password}}</td>
+          <td>{{ today_date }}</td>
+       <td><i class="material-icons" (click)="deleteData(i)">delete</i></td>
+        </tr>
+       
+      </tbody>
+    </table>
+
+
+    <h1 *ngIf="!showTable" class="no-list">No Data Added yet..</h1>
+  </div>
+</div>
+
+
+
+
+

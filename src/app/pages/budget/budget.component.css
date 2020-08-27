@@ -1,0 +1,39 @@
+.btn-submit{
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+
+.pd-top-20{
+    padding-top: 20px;
+}
+
+
+.top-text{
+    text-align: center;
+    margin-bottom: 0px;
+    background-color: #17a2b8cc;
+    font-size: 24px;
+    height: 34px;
+}
+
+.no-list{
+    text-align: center;
+    color: #6c757d5e;
+}
+
+
+.btn-right{
+    float: right;
+    border: none;
+    outline: none;
+    /* padding-right: 12px; */
+}
+
+.mr--top{
+
+float: left;
+margin-top: 8px;
+
+}
