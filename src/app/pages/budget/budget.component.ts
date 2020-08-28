@@ -12,6 +12,8 @@ export class BudgetComponent implements OnInit {
   registerForm: FormGroup;
   dateForm:FormGroup;
   submitted = false;
+  submittedDate = false;
+
   arry=[]
   sum:number=0
   options=[]
@@ -22,7 +24,7 @@ export class BudgetComponent implements OnInit {
   search_date:any
   today_date:any
  showExpandature:boolean
- buttonDisableSearch:boolean=true
+//  buttonDisableSearch:boolean=true
   sum_data: number;
   constructor(private formBuilder: FormBuilder, private router :Router) { 
       let date_data= new Date()
@@ -37,15 +39,15 @@ ngOnInit(): void {
           this.options = ["car", "bike", "tea","food","shopping","house rent"];
           this.registerForm = this.formBuilder.group({
           
-            email: ['', Validators.required],
-            password: ['', Validators.required],
+            name: ['', Validators.required],
+            amount: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
             
 
         });
 
         this.dateForm = this.formBuilder.group({
           
-          datte: [''],
+          datte: ['',Validators.required],
     
           
 
@@ -69,8 +71,13 @@ ngOnInit(): void {
         
       
 }
+get d() { return this.dateForm.controls; }
 
 onSubmitDate(){
+  this.submittedDate=true
+  if (this.dateForm.invalid) {
+    return;
+}
             let date_data= new Date(this.dateForm.value.datte)
             let number_un=date_data.getDate()+1
             
@@ -103,19 +110,20 @@ onSubmitDate(){
 }
 
 
+
 get f() { return this.registerForm.controls; }
 
 onSubmit() {
       this.submitted = true;
       this.buttonDisable=true
       this.showExpandature=false
-this.buttonDisableSearch=false
+// this.buttonDisableSearch=false
       if (this.registerForm.invalid) {
           return;
       }
       // this.showTable=true
      
-      let obj={email:this.registerForm.value.email,password:this.registerForm.value.password,full_date:this.today_date}
+      let obj={name:this.registerForm.value.name,amount:this.registerForm.value.amount,full_date:this.today_date}
 
       // console.log(obj)
 
@@ -129,14 +137,14 @@ this.buttonDisableSearch=false
           timer: 1000
         });
   
-      this.sum += parseInt(this.registerForm.value.password)
+      this.sum += parseInt(this.registerForm.value.amount)
       console.log(this.sum)
       localStorage.setItem("sumData",JSON.stringify(this.sum))
       // }
       this.registerForm = this.formBuilder.group({
           
-        email: [''],
-        password: ['']
+        name: [''],
+        amount: ['']
       });
             // alert('SUCCESS!! :-)')
       localStorage.setItem("getData",JSON.stringify(this.arry))
@@ -150,7 +158,7 @@ this.buttonDisableSearch=false
               timer: 1000
             });
           let rem_data=this.arry.splice(k,1);
-          this.sum=this.sum - parseInt(rem_data[0].password)
+          this.sum=this.sum - parseInt(rem_data[0].amount)
           localStorage.setItem("getData",JSON.stringify(this.arry))
           localStorage.setItem("sumData",JSON.stringify(this.sum))
 
@@ -166,7 +174,7 @@ selectedCountry:any
   countryChanged(value) {
     this.selectedCountry = value;
     console.log(this.selectedCountry);
-    this.buttonDisable=false
+    // this.buttonDisable=false
   }
 
 
